@@ -2,6 +2,8 @@ package cmd
 
 import (
 	"ecommerce/common/log"
+	"ecommerce/internal/sqlclient"
+	"ecommerce/repository"
 	"fmt"
 	"os"
 	"time"
@@ -41,9 +43,21 @@ func init() {
 		Port: viper.GetString(`main.port`),
 		DB:   viper.GetBool(`main.database`),
 	}
-
-	if config.DB {
-
+	if cfg.DB {
+		sqlClientConfig := sqlclient.SqlConfig{
+			Host:         viper.GetString(`database.host`),
+			Database:     viper.GetString(`database.database`),
+			Username:     viper.GetString(`database.username`),
+			Password:     viper.GetString(`database.password`),
+			Port:         viper.GetInt(`database.port`),
+			DialTimeout:  20,
+			ReadTimeout:  30,
+			Timeout:      30,
+			PoolSize:     10,
+			MaxIdleConns: 10,
+			MaxOpenConns: 10,
+		}
+		repository.InitRepo(sqlclient.NewSqlClient(sqlClientConfig))
 	}
 	config = cfg
 }

@@ -7,8 +7,8 @@
         "driver":"postgresql",
         "host":"18.142.229.125",
         "port":5432,
-        "username":"",
-        "password":"",
-        "database":"demo-ecommerce"
+        "username":"admin",
+        "password":"ManhToan0123",
+        "database":"demo_ecommerce"
     }
 }
